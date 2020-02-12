@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="Puestos"></div>
+			<div class="card-body">
+				<table>
+					<tr>
+						<td style ="vertical-align:text-top;">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Puestos disponibles</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="puesto : ${puestos}">
+										<td th:if="${puesto.estado == false}">
+										<span class="label label-primary" th:text="'Puesto # ' + ${puesto.id}"></span>
+										<a class="btn btn-success" th:href="@{'/form/'} + ${puesto.id}"
+											th:text="Añadir"></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+						
+						<td style ="vertical-align:text-top;">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Puestos en uso</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="puesto : ${puestos}">
+										<td th:if="${puesto.estado == true}">
+										<span class="label label-primary" th:text="'Puesto # ' + ${puesto.id}"></span>
+										<a class="btn btn-primary" th:href="@{'/ver/'} + ${puesto.id}"
+											th:text="'Ver detalle'"></a>
+										<a class="btn btn-danger" th:href="@{'/vaciar/'} + ${puesto.id}"
+											th:text="'Vaciar puesto'"></a>
+										<a class="btn btn-warning" th:href="@{'/ver/' + ${puesto.id}(format=pdf)}"
+											th:text="'PDF'"></a>	
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+
+				</table>
+
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
